@@ -1,0 +1,6 @@
+{
+  "name": "Secret Hider",
+  "description": "Offline steganography tool to hide encrypted secret messages inside text, emojis, and images with 3 custom themes.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

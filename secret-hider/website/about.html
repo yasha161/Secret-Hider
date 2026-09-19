@@ -1,0 +1,192 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About Secret Hider — Hide Messages in Text, Emoji &amp; Images</title>
+  <meta name="description" content="Secret Hider is a free, fun steganography tool. Hide secret messages inside everyday text, emojis, and images. No uploads, no accounts, 100% on your device." />
+  <meta name="robots" content="index, follow" />
+  <meta property="og:title" content="About Secret Hider — Hide Messages in Text, Emoji &amp; Images" />
+  <meta property="og:description" content="Secret Hider is a free, fun steganography tool. Hide secret messages inside everyday text, emojis, and images. No uploads, no accounts, 100% on your device." />
+  <meta property="og:type" content="website" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --primary: #0284C7; --primary-dark: #0369A1; --primary-light: #BAE6FD;
+      --bg-start: #EBF5FF; --bg-end: #F8FAFC; --surface: #FFFFFF;
+      --border: #E0EEF8; --text: #1E293B; --text-muted: #64748B;
+      --radius-md: 16px; --radius-lg: 24px; --shadow: 0 2px 16px rgba(2,132,199,0.07);
+    }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; background: linear-gradient(160deg, var(--bg-start) 0%, var(--bg-end) 100%); min-height: 100vh; color: var(--text); line-height: 1.65; }
+    a { color: var(--primary); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    header { background: var(--surface); border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 100; box-shadow: 0 1px 8px rgba(2,132,199,0.06); }
+    .header-inner { max-width: 1080px; margin: 0 auto; padding: 0 24px; height: 64px; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+    .logo { font-size: 1.25rem; font-weight: 800; color: var(--primary); letter-spacing: -0.5px; white-space: nowrap; }
+    .logo span { color: var(--text); }
+    nav { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+    nav a { font-size: 0.875rem; font-weight: 500; color: var(--text-muted); padding: 6px 12px; border-radius: 8px; transition: background 0.15s, color 0.15s; }
+    nav a:hover { background: var(--bg-start); color: var(--primary); text-decoration: none; }
+    nav a.active { color: var(--primary); background: var(--primary-light); font-weight: 600; }
+    .hero { max-width: 1080px; margin: 0 auto; padding: 64px 24px 40px; text-align: center; }
+    .hero-badge { display: inline-block; background: var(--primary-light); color: var(--primary-dark); font-size: 0.78rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; padding: 5px 14px; border-radius: 999px; margin-bottom: 20px; }
+    .hero h1 { font-size: clamp(2rem, 5vw, 3rem); font-weight: 900; line-height: 1.15; letter-spacing: -1px; margin-bottom: 16px; color: var(--text); }
+    .hero h1 .accent { color: var(--primary); }
+    .hero p { font-size: 1.15rem; color: var(--text-muted); max-width: 560px; margin: 0 auto 32px; }
+    .cta-group { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+    .btn-primary { background: var(--primary); color: #fff; font-weight: 700; font-size: 0.95rem; padding: 12px 24px; border-radius: 12px; transition: background 0.15s, transform 0.1s; display: inline-flex; align-items: center; gap: 8px; }
+    .btn-primary:hover { background: var(--primary-dark); text-decoration: none; transform: translateY(-1px); }
+    .btn-secondary { background: var(--surface); color: var(--primary); border: 1.5px solid var(--primary-light); font-weight: 700; font-size: 0.95rem; padding: 12px 24px; border-radius: 12px; transition: background 0.15s, transform 0.1s; display: inline-flex; align-items: center; gap: 8px; }
+    .btn-secondary:hover { background: var(--bg-start); text-decoration: none; transform: translateY(-1px); }
+    main { max-width: 1080px; margin: 0 auto; padding: 0 24px 80px; }
+    .card { background: var(--surface); border: 1.5px solid var(--border); border-radius: var(--radius-lg); padding: 36px 40px; margin-bottom: 24px; box-shadow: var(--shadow); }
+    @media (max-width: 600px) { .card { padding: 24px 20px; } }
+    .card-header { display: flex; align-items: center; gap: 14px; margin-bottom: 18px; }
+    .card-icon { font-size: 2rem; line-height: 1; flex-shrink: 0; }
+    .card h2 { font-size: 1.35rem; font-weight: 800; color: var(--text); letter-spacing: -0.3px; }
+    .card p { color: var(--text-muted); margin-bottom: 12px; font-size: 1rem; }
+    .card p:last-child { margin-bottom: 0; }
+    .why-list { list-style: none; display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; margin-top: 16px; }
+    .why-list li { background: var(--bg-start); border: 1px solid var(--border); border-radius: var(--radius-md); padding: 14px 18px; font-size: 0.95rem; color: var(--text); display: flex; align-items: flex-start; gap: 10px; }
+    .why-list li::before { content: "✦"; color: var(--primary); font-size: 0.75rem; margin-top: 3px; flex-shrink: 0; }
+    .how-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; margin-top: 4px; }
+    .how-card { background: var(--bg-start); border: 1.5px solid var(--border); border-radius: var(--radius-md); padding: 24px 22px; }
+    .how-card .emoji { font-size: 2rem; margin-bottom: 10px; display: block; }
+    .how-card h3 { font-size: 1.05rem; font-weight: 800; margin-bottom: 8px; color: var(--text); }
+    .how-card p { font-size: 0.92rem; color: var(--text-muted); margin: 0; }
+    .promise-banner { background: linear-gradient(135deg, #0284C7 0%, #0369A1 100%); border-radius: var(--radius-lg); padding: 36px 40px; color: #fff; margin-bottom: 24px; box-shadow: 0 4px 24px rgba(2,132,199,0.25); }
+    @media (max-width: 600px) { .promise-banner { padding: 24px 20px; } }
+    .promise-banner h2 { font-size: 1.35rem; font-weight: 800; margin-bottom: 10px; }
+    .promise-banner p { font-size: 1rem; opacity: 0.9; margin-bottom: 0; }
+    footer { background: var(--surface); border-top: 1px solid var(--border); padding: 40px 24px 28px; }
+    .footer-inner { max-width: 1080px; margin: 0 auto; }
+    .footer-top { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 24px; margin-bottom: 28px; }
+    .footer-brand .logo { font-size: 1.1rem; }
+    .footer-brand p { font-size: 0.85rem; color: var(--text-muted); margin-top: 8px; max-width: 260px; }
+    .footer-links h4 { font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-muted); margin-bottom: 12px; }
+    .footer-links ul { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+    .footer-links a { font-size: 0.875rem; color: var(--text-muted); }
+    .footer-links a:hover { color: var(--primary); }
+    .footer-bottom { border-top: 1px solid var(--border); padding-top: 20px; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 12px; }
+    .footer-bottom p { font-size: 0.8rem; color: var(--text-muted); }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="header-inner">
+      <a href="index.html" class="logo">Secret<span>Hider</span> 🤫</a>
+      <nav>
+        <a href="index.html">Home</a>
+        <a href="about.html" class="active">About</a>
+        <a href="faq.html">FAQ</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero">
+    <span class="hero-badge">✦ 100% On-Device · No Account Needed</span>
+    <h1>About <span class="accent">Secret Hider</span> 🤫</h1>
+    <p>Real steganography, made approachable. Hide messages in text, emojis, and images — with zero uploads, zero accounts, and zero drama.</p>
+    <div class="cta-group">
+      <a href="#" class="btn-primary">📲 Get on Google Play</a>
+      <a href="https://ai.studio/apps/367ce0bf-183a-4aa1-895f-3c7890168e35" class="btn-secondary" target="_blank" rel="noopener">✨ Try on AI Studio</a>
+    </div>
+  </section>
+
+  <main>
+    <div class="card">
+      <div class="card-header"><span class="card-icon">🧐</span><h2>What is this?</h2></div>
+      <p>Secret Hider is a free tool that lets you hide secret messages where no one would think to look — tucked invisibly inside a normal sentence, hiding behind a single emoji, or embedded in the pixels of a photo.</p>
+      <p>It's real steganography, made approachable. <strong>No PhD required.</strong></p>
+    </div>
+
+    <div class="card">
+      <div class="card-header"><span class="card-icon">💡</span><h2>Why we built it</h2></div>
+      <p>Not everything needs to be a business secret or a classified document. Sometimes you just want to:</p>
+      <ul class="why-list">
+        <li>Slip a secret compliment into a text</li>
+        <li>Send a surprise message disguised as a boring work update</li>
+        <li>Hide an inside joke inside a photo for your friend to find</li>
+        <li>Keep a private note that looks like nothing at all</li>
+      </ul>
+      <p style="margin-top:18px;">We built Secret Hider for <strong>people — not corporations.</strong> It's for fun, privacy, personal moments, and the joy of having a secret.</p>
+    </div>
+
+    <div class="card">
+      <div class="card-header"><span class="card-icon">⚙️</span><h2>How it works (the short version)</h2></div>
+      <div class="how-grid">
+        <div class="how-card">
+          <span class="emoji">📝</span>
+          <h3>Hide in Text</h3>
+          <p>Your secret message gets converted into invisible zero-width characters that hide between the words of a normal-looking sentence. The text looks completely unchanged to anyone who reads it.</p>
+        </div>
+        <div class="how-card">
+          <span class="emoji">🤫</span>
+          <h3>Hide in Emoji</h3>
+          <p>Your secret is embedded inside a standard emoji using invisible Unicode Tag characters. The emoji looks 100% normal. The secret is invisibly attached.</p>
+        </div>
+        <div class="how-card">
+          <span class="emoji">🖼️</span>
+          <h3>Hide in Image</h3>
+          <p>We use LSB (Least Significant Bit) steganography to flip tiny pixel bits in a photo's RGB channels. The image looks identical to the naked eye. Your secret is in the pixels.</p>
+        </div>
+      </div>
+      <p style="margin-top:20px;">All three methods support optional <strong>password protection (XOR encryption)</strong>, so even if someone finds the hidden payload, they'd still need the key.</p>
+    </div>
+
+    <div class="promise-banner">
+      <h2>🔒 The promise: your data stays with you</h2>
+      <p>Nothing leaves your device. No uploads, no servers, no logging of your messages. We never see what you hide — because it <em>never comes to us</em>. It's genuinely private.</p>
+    </div>
+
+    <div class="card">
+      <div class="card-header"><span class="card-icon">🎉</span><h2>Free, forever</h2></div>
+      <p>No account. No subscription. No "premium tier." Secret Hider is free and always will be.</p>
+    </div>
+
+    <div class="card">
+      <div class="card-header"><span class="card-icon">🙏</span><h2>One request</h2></div>
+      <p>This tool is for fun, personal privacy, inside jokes, and harmless secrets between consenting people. Please don't use it for anything that could hurt someone, deceive someone, or break the law.</p>
+      <p><strong>Be good.</strong></p>
+    </div>
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <div class="logo">Secret<span style="color:#1E293B;">Hider</span> 🤫</div>
+          <p>Hide messages in text, emojis &amp; images. 100% on-device. Always free.</p>
+        </div>
+        <div class="footer-links">
+          <h4>App</h4>
+          <ul>
+            <li><a href="#">📲 Google Play</a></li>
+            <li><a href="https://ai.studio/apps/367ce0bf-183a-4aa1-895f-3c7890168e35" target="_blank" rel="noopener">✨ AI Studio</a></li>
+          </ul>
+        </div>
+        <div class="footer-links">
+          <h4>Pages</h4>
+          <ul>
+            <li><a href="about.html">About</a></li>
+            <li><a href="faq.html">FAQ</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </div>
+        <div class="footer-links">
+          <h4>Legal</h4>
+          <ul>
+            <li><a href="privacy.html">Privacy Policy</a></li>
+            <li><a href="terms.html">Terms of Service</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2026 Secret Hider. Made with 🤫 in India.</p>
+        <p>Built for fun, privacy, and inside jokes.</p>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

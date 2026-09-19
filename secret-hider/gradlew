@@ -1,0 +1,19 @@
+﻿#!/usr/bin/env sh
+##############################################################################
+## Gradle start up script for UN*X
+##############################################################################
+APP_NAME="Gradle"
+APP_BASE_NAME=`basename "$0"`
+DEFAULT_JVM_OPTS='"-Xmx64m" "-Xms64m"'
+MAX_FD="maximum"
+warn () { echo "$*"; }
+die () { echo; echo "$*"; echo; exit 1; }
+os400=false
+case "`uname`" in OS400*) os400=true;; esac
+if $os400; then which nohup > /dev/null 2>&1 || die "ERROR: nohup not found."; fi
+if [ "$APP_HOME" ] ; then SAVED="$APP_HOME"; APP_HOME=`dirname "$APP_HOME/foo"`; [ -d "$SAVED" ] || APP_HOME="$SAVED"; fi
+if [ -z "$APP_HOME" ] ; then APP_HOME=`dirname "$0"`; fi
+CLASSPATH=$APP_HOME/gradle/wrapper/gradle-wrapper.jar
+JAVACMD="java"
+if [ -n "$JAVA_HOME" ] ; then JAVACMD="$JAVA_HOME/bin/java"; fi
+exec "$JAVACMD" -classpath "$CLASSPATH" org.gradle.wrapper.GradleWrapperMain "$@"
