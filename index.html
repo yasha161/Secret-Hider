@@ -1,0 +1,745 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Secret Hider — Hide Secret Messages Inside Emojis, Text &amp; Images</title>
+  <meta name="description" content="Free, 100% on-device steganography tool. Conceal secret messages invisibly inside normal text, single emojis, or images. No accounts, zero uploads, works on WhatsApp, Instagram &amp; Twitter." />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://hidemymessages.site/" />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Secret Hider — Hide Secret Messages in Plain Sight" />
+  <meta property="og:description" content="Conceal private text inside innocent emojis, messages, and photos. 100% client-side privacy." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://hidemymessages.site/" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Secret Hider — Steganography Made Simple" />
+  <meta name="twitter:description" content="Hide secret text in emojis, sentences, and photos on your device with zero server logs." />
+
+  <!-- JSON-LD Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Secret Hider",
+    "url": "https://hidemymessages.site/",
+    "applicationCategory": "SecurityApplication",
+    "operatingSystem": "All",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    },
+    "description": "Client-side steganography tool to hide secret messages inside emojis, text, and images without uploads."
+  }
+  </script>
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --primary: #0284C7; --primary-dark: #0369A1; --primary-light: #BAE6FD;
+      --bg-start: #EBF5FF; --bg-end: #F8FAFC; --surface: #FFFFFF;
+      --border: #E0EEF8; --text: #1E293B; --text-muted: #64748B;
+      --accent: #10B981; --accent-light: #D1FAE5;
+      --radius-sm: 8px; --radius-md: 14px; --radius-lg: 22px;
+      --shadow: 0 4px 20px rgba(2,132,199,0.08);
+    }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      background: linear-gradient(160deg, var(--bg-start) 0%, var(--bg-end) 100%);
+      min-height: 100vh; color: var(--text); line-height: 1.6;
+    }
+    a { color: var(--primary); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    header {
+      background: var(--surface); border-bottom: 1px solid var(--border);
+      position: sticky; top: 0; z-index: 100; box-shadow: 0 1px 8px rgba(2,132,199,0.06);
+    }
+    .header-inner {
+      max-width: 1080px; margin: 0 auto; padding: 0 24px; height: 64px;
+      display: flex; align-items: center; justify-content: space-between; gap: 16px;
+    }
+    .logo {
+      font-size: 1.25rem; font-weight: 800; color: var(--primary);
+      letter-spacing: -0.5px; display: inline-flex; align-items: center; gap: 8px;
+    }
+    .logo span { color: var(--text); }
+    nav { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+    nav a {
+      font-size: 0.875rem; font-weight: 500; color: var(--text-muted);
+      padding: 6px 12px; border-radius: 8px; transition: background 0.15s, color 0.15s;
+    }
+    nav a:hover { background: var(--bg-start); color: var(--primary); text-decoration: none; }
+    nav a.active { color: var(--primary); background: var(--primary-light); font-weight: 600; }
+    .cta-btn-nav {
+      background: var(--primary); color: #fff !important; padding: 7px 16px;
+      border-radius: 20px; font-weight: 600; font-size: 13px; margin-left: 8px;
+    }
+    .cta-btn-nav:hover { background: var(--primary-dark); text-decoration: none !important; }
+
+    .hero { max-width: 1080px; margin: 0 auto; padding: 48px 24px 32px; text-align: center; }
+    .hero-badge {
+      display: inline-block; background: var(--primary-light); color: var(--primary-dark);
+      font-size: 0.78rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase;
+      padding: 5px 14px; border-radius: 999px; margin-bottom: 18px;
+    }
+    .hero h1 {
+      font-size: clamp(2rem, 5vw, 3.1rem); font-weight: 900; line-height: 1.2;
+      letter-spacing: -1px; margin-bottom: 14px; color: var(--text);
+    }
+    .hero h1 .accent { color: var(--primary); }
+    .hero p { font-size: 1.15rem; color: var(--text-muted); max-width: 620px; margin: 0 auto 28px; }
+
+    main { max-width: 900px; margin: 0 auto; padding: 0 20px 60px; }
+
+    /* Tool Container */
+    .tool-box {
+      background: var(--surface); border: 1.5px solid var(--border);
+      border-radius: var(--radius-lg); padding: 28px; box-shadow: var(--shadow);
+      margin-bottom: 40px;
+    }
+    @media (max-width: 600px) { .tool-box { padding: 18px; } }
+
+    /* Tabs */
+    .tabs {
+      display: flex; gap: 8px; background: var(--bg-start); padding: 6px;
+      border-radius: var(--radius-md); margin-bottom: 24px; overflow-x: auto;
+    }
+    .tab-btn {
+      flex: 1; padding: 10px 14px; border: none; background: transparent;
+      border-radius: 10px; font-weight: 700; font-size: 0.92rem; color: var(--text-muted);
+      cursor: pointer; transition: all 0.15s; white-space: nowrap; text-align: center;
+    }
+    .tab-btn.active {
+      background: var(--surface); color: var(--primary);
+      box-shadow: 0 2px 8px rgba(2,132,199,0.12);
+    }
+
+    /* Tab Panels */
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
+
+    .form-group { margin-bottom: 18px; }
+    label {
+      display: block; font-size: 0.88rem; font-weight: 700; color: var(--text);
+      margin-bottom: 6px;
+    }
+    .field-hint { font-size: 0.78rem; font-weight: 500; color: var(--text-muted); margin-left: 6px; }
+
+    input[type="text"], input[type="password"], textarea, select {
+      width: 100%; padding: 12px 14px; border: 1.5px solid var(--border);
+      border-radius: var(--radius-md); font-size: 0.95rem; font-family: inherit;
+      color: var(--text); background: #F8FAFC; transition: border-color 0.15s, background 0.15s;
+    }
+    input[type="text"]:focus, input[type="password"]:focus, textarea:focus, select:focus {
+      outline: none; border-color: var(--primary); background: #FFFFFF;
+      box-shadow: 0 0 0 3px rgba(2,132,199,0.15);
+    }
+    textarea { min-height: 85px; resize: vertical; }
+
+    .emoji-row {
+      display: flex; gap: 10px; flex-wrap: wrap; margin-top: 6px;
+    }
+    .emoji-chip {
+      font-size: 1.6rem; padding: 6px 12px; background: var(--bg-start);
+      border: 1.5px solid var(--border); border-radius: 12px; cursor: pointer;
+      transition: all 0.15s;
+    }
+    .emoji-chip:hover, .emoji-chip.selected {
+      background: var(--primary-light); border-color: var(--primary);
+      transform: scale(1.08);
+    }
+
+    .action-btn {
+      width: 100%; background: var(--primary); color: #fff; font-weight: 800;
+      font-size: 1rem; padding: 14px 24px; border: none; border-radius: var(--radius-md);
+      cursor: pointer; transition: background 0.15s, transform 0.1s;
+      display: flex; align-items: center; justify-content: center; gap: 8px;
+    }
+    .action-btn:hover { background: var(--primary-dark); transform: translateY(-1px); }
+    .action-btn:active { transform: translateY(0); }
+
+    .result-box {
+      margin-top: 24px; padding: 20px; background: #F0FDF4; border: 1.5px solid #BBF7D0;
+      border-radius: var(--radius-md); display: none;
+    }
+    .result-box.show { display: block; }
+    .result-box.decode-view { background: #EFF6FF; border-color: #BFDBFE; }
+    .result-header {
+      display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;
+    }
+    .result-title { font-size: 0.85rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; color: #166534; }
+    .decode-view .result-title { color: #1E40AF; }
+
+    .result-output {
+      background: #FFFFFF; border: 1px solid #DCFCE7; border-radius: 10px;
+      padding: 12px 14px; font-size: 0.95rem; color: #1F2937; word-break: break-all;
+      margin-bottom: 12px; max-height: 160px; overflow-y: auto; font-family: monospace;
+    }
+    .decode-view .result-output { border-color: #DBEAFE; font-family: inherit; font-size: 1rem; }
+
+    .btn-row { display: flex; gap: 10px; }
+    .btn-copy {
+      background: var(--accent); color: #fff; border: none; font-weight: 700;
+      font-size: 0.88rem; padding: 8px 16px; border-radius: 8px; cursor: pointer;
+      display: inline-flex; align-items: center; gap: 6px;
+    }
+    .btn-copy:hover { background: #059669; }
+
+    /* Image Drop Area */
+    .drop-zone {
+      border: 2px dashed var(--border); border-radius: var(--radius-md);
+      padding: 24px; text-align: center; background: #F8FAFC; cursor: pointer;
+      transition: border-color 0.15s, background 0.15s; margin-bottom: 14px;
+    }
+    .drop-zone:hover { border-color: var(--primary); background: var(--bg-start); }
+    .drop-zone p { font-size: 0.9rem; color: var(--text-muted); }
+
+    /* Features Grid */
+    .features-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 18px; margin-bottom: 40px;
+    }
+    .feat-card {
+      background: var(--surface); border: 1.5px solid var(--border);
+      border-radius: var(--radius-md); padding: 24px; box-shadow: var(--shadow);
+    }
+    .feat-icon { font-size: 2rem; margin-bottom: 12px; display: block; }
+    .feat-card h3 { font-size: 1.1rem; font-weight: 800; margin-bottom: 8px; color: var(--text); }
+    .feat-card p { font-size: 0.92rem; color: var(--text-muted); line-height: 1.55; }
+
+    /* Banner */
+    .app-banner {
+      background: linear-gradient(135deg, #0284C7 0%, #0369A1 100%);
+      border-radius: var(--radius-lg); padding: 36px 32px; color: #fff;
+      display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center;
+      gap: 20px; box-shadow: 0 6px 24px rgba(2,132,199,0.25); margin-bottom: 40px;
+    }
+    .app-banner h2 { font-size: 1.4rem; font-weight: 900; margin-bottom: 6px; }
+    .app-banner p { font-size: 0.96rem; opacity: 0.92; max-width: 480px; }
+    .btn-white {
+      background: #FFFFFF; color: var(--primary); font-weight: 800; font-size: 0.95rem;
+      padding: 12px 24px; border-radius: 12px; transition: transform 0.15s; white-space: nowrap;
+    }
+    .btn-white:hover { transform: translateY(-2px); text-decoration: none; }
+
+    footer { background: #1E293B; color: #94A3B8; padding: 44px 24px 28px; }
+    .footer-inner { max-width: 1080px; margin: 0 auto; }
+    .footer-top { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 24px; margin-bottom: 28px; }
+    .footer-brand .logo { font-size: 1.15rem; color: #fff; }
+    .footer-brand p { font-size: 0.88rem; color: #94A3B8; margin-top: 8px; max-width: 280px; }
+    .footer-links h4 { font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: #CBD5E1; margin-bottom: 12px; }
+    .footer-links ul { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+    .footer-links a { font-size: 0.88rem; color: #94A3B8; }
+    .footer-links a:hover { color: #FFFFFF; text-decoration: none; }
+    .footer-bottom { border-top: 1px solid #334155; padding-top: 20px; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 12px; font-size: 0.82rem; }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="header-inner">
+      <a href="index.html" class="logo">Secret<span>Hider</span> 🤫</a>
+      <nav>
+        <a href="index.html" class="active">Home</a>
+        <a href="about.html">About</a>
+        <a href="faq.html">FAQ</a>
+        <a href="contact.html">Contact</a>
+        <a href="https://ai.studio/apps/367ce0bf-183a-4aa1-895f-3c7890168e35" class="cta-btn-nav" target="_blank" rel="noopener">Try AI Studio ↗</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero">
+    <span class="hero-badge">✦ 100% On-Device · Zero Data Logs · 100% Free</span>
+    <h1>Hide Secret Messages In <span class="accent">Plain Sight</span> 🤫</h1>
+    <p>Conceal private passwords, messages, and sensitive text invisibly inside normal sentences, emojis, or photos. Send them over WhatsApp, Instagram, or Twitter without anyone knowing.</p>
+  </section>
+
+  <main>
+    <div class="tool-box">
+      <!-- Tabs -->
+      <div class="tabs" role="tablist">
+        <button class="tab-btn active" onclick="switchTab('text')">✍️ Text Stego</button>
+        <button class="tab-btn" onclick="switchTab('emoji')">😀 Emoji Stego</button>
+        <button class="tab-btn" onclick="switchTab('image')">🖼️ Image Stego</button>
+        <button class="tab-btn" onclick="switchTab('decode')">🔓 Reveal / Decode</button>
+      </div>
+
+      <!-- Tab 1: Text Stego -->
+      <div id="tab-text" class="tab-panel active">
+        <div class="form-group">
+          <label>Cover Message <span class="field-hint">(The public text everyone sees)</span></label>
+          <input type="text" id="text-cover" value="Hey, let's catch up tomorrow at 5pm for coffee!" placeholder="Enter innocent cover message..." />
+        </div>
+        <div class="form-group">
+          <label>Secret Message <span class="field-hint">(Invisible text hidden inside)</span></label>
+          <textarea id="text-secret" placeholder="Type your private message, crypto seed, or password..."></textarea>
+        </div>
+        <div class="form-group">
+          <label>Optional Password <span class="field-hint">(Extra XOR encryption lock)</span></label>
+          <input type="password" id="text-pass" placeholder="Optional encryption key..." />
+        </div>
+        <button class="action-btn" onclick="encodeTextStego()">🔒 Hide Inside Text</button>
+
+        <div id="result-text" class="result-box">
+          <div class="result-header">
+            <span class="result-title">✅ Encoded Message Ready (Zero-Width Stego)</span>
+          </div>
+          <div class="result-output" id="output-text"></div>
+          <div class="btn-row">
+            <button class="btn-copy" onclick="copyContent('output-text')">📋 Copy to Clipboard</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tab 2: Emoji Stego -->
+      <div id="tab-emoji" class="tab-panel">
+        <div class="form-group">
+          <label>Choose Carrier Emoji</label>
+          <div class="emoji-row">
+            <span class="emoji-chip selected" onclick="selectEmoji(this, '🤫')">🤫</span>
+            <span class="emoji-chip" onclick="selectEmoji(this, '🔥')">🔥</span>
+            <span class="emoji-chip" onclick="selectEmoji(this, '❤️')">❤️</span>
+            <span class="emoji-chip" onclick="selectEmoji(this, '☕')">☕</span>
+            <span class="emoji-chip" onclick="selectEmoji(this, '🚀')">🚀</span>
+            <span class="emoji-chip" onclick="selectEmoji(this, '🎁')">🎁</span>
+          </div>
+          <input type="hidden" id="selected-emoji" value="🤫" />
+        </div>
+        <div class="form-group">
+          <label>Secret Message</label>
+          <textarea id="emoji-secret" placeholder="Type your secret text to hide behind this emoji..."></textarea>
+        </div>
+        <div class="form-group">
+          <label>Optional Password</label>
+          <input type="password" id="emoji-pass" placeholder="Optional encryption key..." />
+        </div>
+        <button class="action-btn" onclick="encodeEmojiStego()">😀 Embed Inside Emoji</button>
+
+        <div id="result-emoji" class="result-box">
+          <div class="result-header">
+            <span class="result-title">✅ Stego Emoji Generated</span>
+          </div>
+          <div class="result-output" id="output-emoji" style="font-size: 2rem; text-align: center;"></div>
+          <div class="btn-row">
+            <button class="btn-copy" onclick="copyContent('output-emoji')">📋 Copy Emoji</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tab 3: Image Stego -->
+      <div id="tab-image" class="tab-panel">
+        <div class="form-group">
+          <label>Carrier Image (PNG or JPG)</label>
+          <div class="drop-zone" onclick="document.getElementById('image-file').click()">
+            <p id="drop-zone-text">📸 Click to choose an image from your device</p>
+            <input type="file" id="image-file" accept="image/*" style="display:none" onchange="handleImageSelect(event)" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Secret Message</label>
+          <textarea id="image-secret" placeholder="Enter message to embed into image pixels..."></textarea>
+        </div>
+        <div class="form-group">
+          <label>Optional Password</label>
+          <input type="password" id="image-pass" placeholder="Optional encryption key..." />
+        </div>
+        <button class="action-btn" onclick="encodeImageStego()">🖼️ Encode Into Pixels (LSB)</button>
+
+        <div id="result-image" class="result-box">
+          <div class="result-header">
+            <span class="result-title">✅ Stego Image Ready</span>
+          </div>
+          <div style="text-align:center; margin-bottom:12px;">
+            <canvas id="stego-canvas" style="max-width:100%; max-height:220px; border-radius:10px; border:1px solid #ccc;"></canvas>
+          </div>
+          <div class="btn-row">
+            <a id="btn-download-img" class="btn-copy" download="secret_carrier.png" style="text-decoration:none;">⬇️ Download Stego PNG</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tab 4: Reveal / Decode -->
+      <div id="tab-decode" class="tab-panel">
+        <div class="form-group">
+          <label>Paste Any Stego Text, Emoji, or Message</label>
+          <textarea id="decode-input" placeholder="Paste the text or emoji here..."></textarea>
+        </div>
+        <div class="form-group">
+          <label>Or Drop an Encoded Stego Image</label>
+          <input type="file" id="decode-img-file" accept="image/*" onchange="handleDecodeImageSelect(event)" />
+        </div>
+        <div class="form-group">
+          <label>Password <span class="field-hint">(Leave blank if no password was set)</span></label>
+          <input type="password" id="decode-pass" placeholder="Enter password if required..." />
+        </div>
+        <button class="action-btn" onclick="decodeStego()">🔓 Reveal Secret Message</button>
+
+        <div id="result-decode" class="result-box decode-view">
+          <div class="result-header">
+            <span class="result-title">🎉 Secret Message Revealed:</span>
+          </div>
+          <div class="result-output" id="output-decode"></div>
+          <div class="btn-row">
+            <button class="btn-copy" onclick="copyContent('output-decode')">📋 Copy Secret</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Features -->
+    <div class="features-grid">
+      <div class="feat-card">
+        <span class="feat-icon">👻</span>
+        <h3>Completely Invisible</h3>
+        <p>Zero visual distortion. Hidden zero-width unicode characters and pixel modifications cannot be noticed by human eyes or casual observers.</p>
+      </div>
+      <div class="feat-card">
+        <span class="feat-icon">📱</span>
+        <h3>Social &amp; Chat Ready</h3>
+        <p>Survives copy-pasting across WhatsApp, Telegram, Twitter, Reddit, and Discord chats without breaking.</p>
+      </div>
+      <div class="feat-card">
+        <span class="feat-icon">🛡️</span>
+        <h3>100% Client-Side</h3>
+        <p>Your messages and images never leave your browser. Zero tracking, zero telemetry, zero server database.</p>
+      </div>
+    </div>
+
+    <!-- Android App Banner -->
+    <div class="app-banner">
+      <div>
+        <h2>Get Secret Hider for Android 📲</h2>
+        <p>Enjoy encrypted vaults, biometric locks, image steganography, and quick share menus on your phone.</p>
+      </div>
+      <a href="https://ai.studio/apps/367ce0bf-183a-4aa1-895f-3c7890168e35" class="btn-white" target="_blank" rel="noopener">Open in AI Studio ↗</a>
+    </div>
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <div class="logo">Secret<span>Hider</span> 🤫</div>
+          <p>Hide messages where no one thinks to look. 100% on-device steganography tool.</p>
+        </div>
+        <div class="footer-links">
+          <h4>Navigation</h4>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="faq.html">FAQ</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </div>
+        <div class="footer-links">
+          <h4>Legal &amp; Privacy</h4>
+          <ul>
+            <li><a href="privacy-policy.html">Privacy Policy</a></li>
+            <li><a href="terms.html">Terms of Service</a></li>
+            <li><a href="sitemap.xml">Sitemap</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 Secret Hider (hidemymessages.site). All rights reserved.</p>
+        <p>100% On-Device Privacy Guaranteed.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Tab switching
+    function switchTab(tabId) {
+      document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+      document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+      event.currentTarget.classList.add('active');
+      document.getElementById('tab-' + tabId).classList.add('active');
+    }
+
+    function selectEmoji(el, emoji) {
+      document.querySelectorAll('.emoji-chip').forEach(c => c.classList.remove('selected'));
+      el.classList.add('selected');
+      document.getElementById('selected-emoji').value = emoji;
+    }
+
+    function copyContent(elementId) {
+      const el = document.getElementById(elementId);
+      const text = el.innerText || el.textContent;
+      navigator.clipboard.writeText(text).then(() => {
+        alert('Copied to clipboard!');
+      });
+    }
+
+    // XOR Helper
+    function xorBytes(bytes, keyStr) {
+      if (!keyStr) return bytes;
+      const keyBytes = new TextEncoder().encode(keyStr);
+      const out = new Uint8Array(bytes.length);
+      for (let i = 0; i < bytes.length; i++) {
+        out[i] = bytes[i] ^ keyBytes[i % keyBytes.length];
+      }
+      return out;
+    }
+
+    // 1. Text Stego (Zero-Width Characters)
+    const ZW_0 = '\u200B';   // bit 0
+    const ZW_1 = '\u200C';   // bit 1
+    const ZW_SEP = '\u200D'; // separator
+
+    function encodeTextStego() {
+      const cover = document.getElementById('text-cover').value || 'Hello';
+      const secret = document.getElementById('text-secret').value;
+      const pass = document.getElementById('text-pass').value;
+
+      if (!secret) { alert('Please enter a secret message'); return; }
+
+      const rawBytes = new TextEncoder().encode(secret);
+      const payloadBytes = xorBytes(rawBytes, pass);
+
+      let binary = '';
+      for (let b of payloadBytes) {
+        const bin = b.toString(2).padStart(8, '0');
+        for (let bit of bin) {
+          binary += (bit === '0' ? ZW_0 : ZW_1);
+        }
+        binary += ZW_SEP;
+      }
+
+      const spaceIdx = cover.indexOf(' ');
+      let encoded = '';
+      if (spaceIdx !== -1) {
+        encoded = cover.substring(0, spaceIdx) + binary + cover.substring(spaceIdx);
+      } else {
+        encoded = cover + binary;
+      }
+
+      document.getElementById('output-text').textContent = encoded;
+      document.getElementById('result-text').classList.add('show');
+    }
+
+    // 2. Emoji Stego (Unicode Tag Block)
+    const TAG_OFFSET = 0xE0000;
+    const TAG_CANCEL = String.fromCodePoint(0xE007F);
+    const B64_PREFIX = "B64:";
+
+    function encodeEmojiStego() {
+      const emoji = document.getElementById('selected-emoji').value || '🤫';
+      const secret = document.getElementById('emoji-secret').value;
+      const pass = document.getElementById('emoji-pass').value;
+
+      if (!secret) { alert('Please enter a secret message'); return; }
+
+      const rawBytes = new TextEncoder().encode(secret);
+      const payloadBytes = xorBytes(rawBytes, pass);
+
+      let binStr = "";
+      for (let i = 0; i < payloadBytes.length; i++) {
+        binStr += String.fromCharCode(payloadBytes[i]);
+      }
+      const b64 = B64_PREFIX + btoa(binStr);
+
+      let result = emoji;
+      for (let i = 0; i < b64.length; i++) {
+        const code = b64.charCodeAt(i);
+        if (code >= 1 && code <= 127) {
+          result += String.fromCodePoint(TAG_OFFSET + code);
+        }
+      }
+      result += TAG_CANCEL;
+
+      document.getElementById('output-emoji').textContent = result;
+      document.getElementById('result-emoji').classList.add('show');
+    }
+
+    // 3. Image Stego (LSB)
+    let selectedImage = null;
+
+    function handleImageSelect(e) {
+      const file = e.target.files[0];
+      if (file) {
+        document.getElementById('drop-zone-text').textContent = "Selected: " + file.name;
+        const reader = new FileReader();
+        reader.onload = function(evt) {
+          const img = new Image();
+          img.onload = function() { selectedImage = img; };
+          img.src = evt.target.result;
+        };
+        reader.readAsDataURL(file);
+      }
+    }
+
+    function encodeImageStego() {
+      if (!selectedImage) { alert('Please select a carrier image first.'); return; }
+      const secret = document.getElementById('image-secret').value;
+      const pass = document.getElementById('image-pass').value;
+      if (!secret) { alert('Please enter a secret message.'); return; }
+
+      const canvas = document.getElementById('stego-canvas');
+      const ctx = canvas.getContext('2d');
+      canvas.width = selectedImage.width;
+      canvas.height = selectedImage.height;
+      ctx.drawImage(selectedImage, 0, 0);
+
+      const imgData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+      const data = imgData.data;
+
+      const rawBytes = new TextEncoder().encode(secret);
+      const payload = xorBytes(rawBytes, pass);
+
+      // Packet: [4 bytes "STEG"] + [1 byte flag] + [4 bytes len] + [payload]
+      const magic = [0x53, 0x54, 0x45, 0x47];
+      const flag = pass ? 0x01 : 0x00;
+      const len = payload.length;
+      const lenBytes = [(len >> 24) & 0xFF, (len >> 16) & 0xFF, (len >> 8) & 0xFF, len & 0xFF];
+
+      const packet = new Uint8Array(4 + 1 + 4 + len);
+      packet.set(magic, 0);
+      packet[4] = flag;
+      packet.set(lenBytes, 5);
+      packet.set(payload, 9);
+
+      const totalBits = packet.length * 8;
+      let bitIdx = 0;
+
+      for (let i = 0; i < data.length && bitIdx < totalBits; i++) {
+        if (i % 4 === 3) continue; // skip alpha
+        const bytePos = Math.floor(bitIdx / 8);
+        const bitPos = 7 - (bitIdx % 8);
+        const bit = (packet[bytePos] >> bitPos) & 1;
+        data[i] = (data[i] & 0xFE) | bit;
+        bitIdx++;
+      }
+
+      ctx.putImageData(imgData, 0, 0);
+      const dataUrl = canvas.toDataURL('image/png');
+      document.getElementById('btn-download-img').href = dataUrl;
+      document.getElementById('result-image').classList.add('show');
+    }
+
+    // 4. Reveal / Decode Engine
+    let decodeImage = null;
+    function handleDecodeImageSelect(e) {
+      const file = e.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function(evt) {
+          const img = new Image();
+          img.onload = function() { decodeImage = img; };
+          img.src = evt.target.result;
+        };
+        reader.readAsDataURL(file);
+      }
+    }
+
+    function decodeStego() {
+      const input = document.getElementById('decode-input').value;
+      const pass = document.getElementById('decode-pass').value;
+      let revealed = "";
+
+      // Check Image Stego first if image selected
+      if (decodeImage) {
+        try {
+          const canvas = document.createElement('canvas');
+          canvas.width = decodeImage.width;
+          canvas.height = decodeImage.height;
+          const ctx = canvas.getContext('2d');
+          ctx.drawImage(decodeImage, 0, 0);
+          const data = ctx.getImageData(0, 0, canvas.width, canvas.height).data;
+
+          // Read first 9 bytes (72 bits)
+          const header = new Uint8Array(9);
+          let bitIdx = 0;
+          for (let i = 0; i < data.length && bitIdx < 72; i++) {
+            if (i % 4 === 3) continue;
+            const bit = data[i] & 1;
+            const bytePos = Math.floor(bitIdx / 8);
+            header[bytePos] = (header[bytePos] << 1) | bit;
+            bitIdx++;
+          }
+
+          const magicStr = String.fromCharCode(...header.slice(0, 4));
+          if (magicStr === "STEG") {
+            const isEnc = header[4] === 0x01;
+            const pLen = (header[5] << 24) | (header[6] << 16) | (header[7] << 8) | header[8];
+            const payload = new Uint8Array(pLen);
+            const totalBits = (9 + pLen) * 8;
+            bitIdx = 72;
+            let pBit = 0;
+            for (let i = 0; i < data.length && bitIdx < totalBits; i++) {
+              if (i % 4 === 3) continue;
+              if (bitIdx >= 72) {
+                const bit = data[i] & 1;
+                const bytePos = Math.floor(pBit / 8);
+                payload[bytePos] = (payload[bytePos] << 1) | bit;
+                pBit++;
+              }
+              bitIdx++;
+            }
+            const finalBytes = xorBytes(payload, pass);
+            revealed = new TextDecoder().decode(finalBytes);
+          }
+        } catch(e) {
+          console.error(e);
+        }
+      }
+
+      // Check Emoji Tag Stego
+      if (!revealed && input) {
+        let extracted = "";
+        for (const ch of input) {
+          const cp = ch.codePointAt(0);
+          if (cp > TAG_OFFSET && cp < TAG_OFFSET + 127) {
+            extracted += String.fromCharCode(cp - TAG_OFFSET);
+          }
+        }
+        if (extracted && extracted.startsWith(B64_PREFIX)) {
+          try {
+            const b64 = extracted.slice(B64_PREFIX.length);
+            const binStr = atob(b64);
+            const bytes = new Uint8Array(binStr.length);
+            for (let i = 0; i < binStr.length; i++) bytes[i] = binStr.charCodeAt(i);
+            const finalBytes = xorBytes(bytes, pass);
+            revealed = new TextDecoder().decode(finalBytes);
+          } catch(e) {}
+        }
+      }
+
+      // Check Text Zero-Width Stego
+      if (!revealed && input) {
+        let zwChars = "";
+        for (let c of input) {
+          if (c === ZW_0 || c === ZW_1 || c === ZW_SEP) zwChars += c;
+        }
+        if (zwChars) {
+          const tokens = zwChars.split(ZW_SEP);
+          const bytes = [];
+          for (let tok of tokens) {
+            if (tok.length === 8) {
+              let bin = "";
+              for (let ch of tok) bin += (ch === ZW_0 ? '0' : '1');
+              bytes.push(parseInt(bin, 2));
+            }
+          }
+          if (bytes.length > 0) {
+            const finalBytes = xorBytes(new Uint8Array(bytes), pass);
+            revealed = new TextDecoder().decode(finalBytes);
+          }
+        }
+      }
+
+      if (revealed) {
+        document.getElementById('output-decode').textContent = revealed;
+        document.getElementById('result-decode').classList.add('show');
+      } else {
+        alert('No hidden steganography message detected, or incorrect password.');
+      }
+    }
+  </script>
+</body>
+</html>

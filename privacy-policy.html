@@ -1,0 +1,190 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Privacy Policy | Secret Hider — Your Messages Stay on Your Device</title>
+  <meta name="description" content="Secret Hider's privacy policy. We don't collect, store, or transmit your messages or images. Everything happens locally on your device. Read our full policy." />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://hidemymessages.site/privacy-policy.html" />
+  <meta property="og:title" content="Privacy Policy | Secret Hider" />
+  <meta property="og:description" content="Secret Hider's privacy policy. We don't collect, store, or transmit your messages or images. Everything stays on your device." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://hidemymessages.site/privacy-policy.html" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --primary: #0284C7; --primary-dark: #0369A1; --primary-light: #BAE6FD;
+      --primary-xlight: #E0F2FE; --bg-start: #EBF5FF; --bg-end: #F8FAFC;
+      --surface: #FFFFFF; --border: #E2EAF0; --text: #1E293B;
+      --text-muted: #64748B; --text-light: #94A3B8;
+      --shadow: 0 1px 4px rgba(2,132,199,.07), 0 4px 20px rgba(2,132,199,.06);
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', Roboto, sans-serif; font-size: 16px; line-height: 1.75; color: var(--text); background: linear-gradient(160deg, var(--bg-start) 0%, var(--bg-end) 100%); min-height: 100vh; }
+    a { color: var(--primary); text-decoration: none; transition: color .2s; }
+    a:hover { color: var(--primary-dark); text-decoration: underline; }
+    header { background: var(--surface); border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 100; box-shadow: 0 1px 8px rgba(2,132,199,.08); }
+    .header-inner { max-width: 1100px; margin: 0 auto; padding: 0 24px; height: 64px; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+    .logo { display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 1.15rem; color: var(--text); text-decoration: none; }
+    .logo-icon { width: 36px; height: 36px; background: linear-gradient(135deg, var(--primary) 0%, #0EA5E9 100%); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0; }
+    .logo:hover { text-decoration: none; color: var(--primary); }
+    nav { display: flex; align-items: center; gap: 4px; }
+    nav a { padding: 6px 14px; border-radius: 8px; font-size: .9rem; font-weight: 500; color: var(--text-muted); transition: background .2s, color .2s; }
+    nav a:hover { background: var(--primary-xlight); color: var(--primary); text-decoration: none; }
+    .nav-cta { background: var(--primary) !important; color: #fff !important; padding: 7px 16px !important; border-radius: 8px; font-weight: 600 !important; }
+    .nav-cta:hover { background: var(--primary-dark) !important; }
+    main { max-width: 820px; margin: 0 auto; padding: 48px 24px 80px; }
+    .page-hero { margin-bottom: 36px; }
+    .page-badge { display: inline-flex; align-items: center; gap: 6px; background: var(--primary-xlight); color: var(--primary-dark); border: 1px solid var(--primary-light); border-radius: 100px; padding: 4px 14px; font-size: .8rem; font-weight: 600; letter-spacing: .04em; text-transform: uppercase; margin-bottom: 16px; }
+    h1 { font-size: clamp(1.8rem, 4vw, 2.4rem); font-weight: 800; line-height: 1.2; color: var(--text); margin-bottom: 12px; }
+    .last-updated { font-size: .85rem; color: var(--text-light); font-weight: 500; }
+    .tldr-box { background: linear-gradient(135deg, #EFF6FF 0%, #E0F2FE 100%); border: 1.5px solid #BAE6FD; border-radius: 20px; padding: 22px 26px; margin-bottom: 40px; display: flex; gap: 14px; align-items: flex-start; }
+    .tldr-icon { font-size: 1.6rem; flex-shrink: 0; margin-top: 2px; }
+    .tldr-content strong { display: block; font-size: 1rem; font-weight: 700; color: var(--primary-dark); margin-bottom: 4px; }
+    .tldr-content p { font-size: .95rem; color: #1E4D7B; line-height: 1.6; margin: 0; }
+    .content-card { background: var(--surface); border: 1px solid var(--border); border-radius: 24px; padding: 40px 48px; box-shadow: var(--shadow); }
+    .policy-section { padding: 28px 0; border-bottom: 1px solid #F1F5F9; }
+    .policy-section:first-child { padding-top: 0; }
+    .policy-section:last-child { padding-bottom: 0; border-bottom: none; }
+    h2 { font-size: 1.1rem; font-weight: 700; color: var(--text); margin-bottom: 14px; display: flex; align-items: center; gap: 10px; }
+    .section-icon { width: 32px; height: 32px; background: var(--primary-xlight); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 15px; flex-shrink: 0; }
+    p { margin-bottom: 12px; color: var(--text); }
+    p:last-child { margin-bottom: 0; }
+    ul { list-style: none; padding: 0; margin: 10px 0; display: flex; flex-direction: column; gap: 8px; }
+    ul li { padding-left: 24px; position: relative; color: var(--text); }
+    ul li::before { content: '\2713'; position: absolute; left: 0; color: #10B981; font-weight: 700; font-size: .85rem; top: 2px; }
+    .highlight-box { background: #F0FDF4; border: 1px solid #BBF7D0; border-radius: 10px; padding: 14px 18px; margin-top: 14px; font-size: .9rem; color: #166534; }
+    .highlight-box strong { color: #15803D; }
+    .note-box { background: #FFFBEB; border: 1px solid #FDE68A; border-radius: 10px; padding: 14px 18px; margin-top: 14px; font-size: .9rem; color: #92400E; }
+    strong { font-weight: 700; }
+    footer { background: var(--surface); border-top: 1px solid var(--border); padding: 40px 24px; }
+    .footer-inner { max-width: 1100px; margin: 0 auto; display: flex; flex-direction: column; gap: 28px; align-items: center; text-align: center; }
+    .footer-logo { font-size: 1.1rem; font-weight: 700; color: var(--text); display: flex; align-items: center; gap: 8px; }
+    .footer-links { display: flex; flex-wrap: wrap; gap: 8px 4px; justify-content: center; }
+    .footer-links a { padding: 5px 12px; border-radius: 6px; font-size: .85rem; color: var(--text-muted); transition: background .2s, color .2s; }
+    .footer-links a:hover { background: var(--primary-xlight); color: var(--primary); text-decoration: none; }
+    .footer-links .sep { color: var(--border); padding: 5px 0; font-size: .85rem; user-select: none; }
+    .footer-copy { font-size: .8rem; color: var(--text-light); }
+    @media (max-width: 640px) {
+      .header-inner { padding: 0 16px; }
+      nav a { padding: 6px 10px; font-size: .82rem; }
+      .content-card { padding: 28px 22px; border-radius: 18px; }
+      main { padding: 32px 16px 64px; }
+      .tldr-box { padding: 18px 20px; }
+      .nav-cta { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="header-inner">
+      <a href="/index.html" class="logo">
+        <div class="logo-icon">&#x1F575;&#xFE0F;</div>
+        Secret Hider
+      </a>
+      <nav>
+        <a href="/index.html">Home</a>
+        <a href="/about.html">About</a>
+        <a href="/faq.html">FAQ</a>
+        <a href="/contact.html">Contact</a>
+        <a href="https://aistudio.google.com/apps/367ce0bf-183a-4aa1-895f-3c7890168e35" target="_blank" rel="noopener" class="nav-cta">Try Free &#x2197;</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="page-hero">
+      <div class="page-badge">&#x1F4C4; Legal</div>
+      <h1>Privacy Policy</h1>
+      <p class="last-updated">Last Updated: September 18, 2026</p>
+    </div>
+
+    <div class="tldr-box">
+      <div class="tldr-icon">&#x1F512;</div>
+      <div class="tldr-content">
+        <strong>Short version:</strong>
+        <p>Your messages, images, and secrets <em>never</em> leave your device. We don&#x27;t collect them, we can&#x27;t read them, and we have no server to send them to. This app is built for fun and personal privacy &#x2014; not for harvesting your data.</p>
+      </div>
+    </div>
+
+    <div class="content-card">
+      <div class="policy-section">
+        <h2><span class="section-icon">&#x1F44B;</span> Who We Are</h2>
+        <p>Secret Hider is a free steganography tool that lets you hide secret messages inside text, emojis, and images. It&#x27;s available as an <a href="#" target="_blank" rel="noopener">Android app on Google Play</a> and via <a href="https://aistudio.google.com/apps/367ce0bf-183a-4aa1-895f-3c7890168e35" target="_blank" rel="noopener">Google AI Studio</a>. It was built by an independent developer based in India, purely for fun and for people who care about their privacy.</p>
+      </div>
+
+      <div class="policy-section">
+        <h2><span class="section-icon">&#x1F6AB;</span> What We Do NOT Collect</h2>
+        <p>We keep this simple, because there&#x27;s genuinely nothing to report:</p>
+        <ul>
+          <li>We do <strong>not</strong> collect, transmit, store, or process the messages, images, or any content you encode or decode.</li>
+          <li>Everything &#x2014; encoding, decoding, encryption &#x2014; happens entirely on your device. Your secrets never travel to any server.</li>
+          <li>We do <strong>not</strong> require you to create an account or log in.</li>
+          <li>We do <strong>not</strong> collect your name, email address, phone number, or any personal identifying information to use the core tool.</li>
+        </ul>
+        <div class="highlight-box">
+          <strong>Zero-knowledge by design.</strong> Even if we wanted to read your hidden messages, we architecturally cannot &#x2014; because they never leave your device.
+        </div>
+      </div>
+
+      <div class="policy-section">
+        <h2><span class="section-icon">&#x1F5C4;&#xFE0F;</span> Vault &amp; Local Storage</h2>
+        <p>The <strong>Secret Vault</strong> feature saves your hidden messages locally on your device, inside the app&#x27;s private storage. This data is stored only on your device and never synced, uploaded, or transmitted anywhere.</p>
+        <p>If you uninstall the app or clear app data, this locally stored data will be permanently deleted. We have no copy of it and cannot help you recover it, so back up anything you care about keeping.</p>
+      </div>
+
+      <div class="policy-section">
+        <h2><span class="section-icon">&#x1F4CA;</span> Analytics &amp; Advertising (Currently: None)</h2>
+        <p>At this time, Secret Hider does <strong>not</strong> use any analytics services or advertising networks.</p>
+        <p>If we add these in the future (for example, anonymous page-view analytics or ads to keep the app free), this policy will be updated <em>before</em> those services go live, and we will clearly disclose what data those third-party services may collect. Any such data would be anonymous and aggregate &#x2014; things like page views, general region, or device type &#x2014; <strong>never</strong> your message content.</p>
+        <div class="note-box">
+          &#x1F4A1; We&#x27;ll always give you a heads-up before anything changes. No surprises.
+        </div>
+      </div>
+
+      <div class="policy-section">
+        <h2><span class="section-icon">&#x1F36A;</span> Cookies</h2>
+        <p>Secret Hider does not currently use cookies. If third-party analytics or advertising is added in the future, those services may use cookies or similar tracking technologies. You can always control or disable cookies in your browser settings.</p>
+      </div>
+
+      <div class="policy-section">
+        <h2><span class="section-icon">&#x1F9D2;</span> Children&#x27;s Privacy</h2>
+        <p>Secret Hider is not directed at children under the age of 13. We do not knowingly collect any personal information from children. If you believe a child under 13 has provided us with personal data, please contact us and we&#x27;ll take appropriate steps.</p>
+      </div>
+
+      <div class="policy-section">
+        <h2><span class="section-icon">&#x1F504;</span> Changes to This Policy</h2>
+        <p>We may update this Privacy Policy from time to time. The &#x22;Last Updated&#x22; date at the top of this page will always reflect the most recent revision. Continued use of the app or website after updates constitutes acceptance of the revised policy.</p>
+      </div>
+
+      <div class="policy-section">
+        <h2><span class="section-icon">&#x1F4AC;</span> Contact</h2>
+        <p>Have questions about this Privacy Policy? We&#x27;re happy to explain anything in plain English. Reach us via our <a href="/contact.html">Contact page</a> or email us directly at <a href="mailto:yasha7080@gmail.com">yasha7080@gmail.com</a>.</p>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-logo">
+        <div style="width:30px;height:30px;background:linear-gradient(135deg,#0284C7 0%,#0EA5E9 100%);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:15px;">&#x1F575;&#xFE0F;</div>
+        Secret Hider
+      </div>
+      <div class="footer-links">
+        <a href="/index.html">Home</a><span class="sep">&#xB7;</span>
+        <a href="/about.html">About</a><span class="sep">&#xB7;</span>
+        <a href="/faq.html">FAQ</a><span class="sep">&#xB7;</span>
+        <a href="/contact.html">Contact</a><span class="sep">&#xB7;</span>
+        <a href="/privacy-policy.html">Privacy Policy</a><span class="sep">&#xB7;</span>
+        <a href="/terms.html">Terms of Service</a>
+      </div>
+      <div class="footer-links" style="gap:16px;">
+        <a href="#" target="_blank" rel="noopener" style="color:var(--primary);font-weight:600;">&#x1F4F1; Android App</a>
+        <a href="https://aistudio.google.com/apps/367ce0bf-183a-4aa1-895f-3c7890168e35" target="_blank" rel="noopener" style="color:var(--primary);font-weight:600;">&#x1F916; Try on AI Studio</a>
+      </div>
+      <p class="footer-copy">&#xA9; 2026 Secret Hider. Made with &#x1F92B; in India. All rights reserved.</p>
+    </div>
+  </footer>
+</body>
+</html>
